@@ -36,7 +36,7 @@ function stringify(j, indentation?: string) {
 
 function reviver(k, v) {
   console.log(k, v);
-  if (v._rawType == "Uint8Array") {
+  if (v instanceof Object && v._rawType === "Uint8Array") {
     return base64ToBuffer(v.value)
   }
   return v;
@@ -53,3 +53,8 @@ const s = stringify({"hi": arr, "cat": "foo"})
 console.log("----");
 console.log(s);
 console.log(parse(s));
+
+function test() {
+  console.log(parse('{"nully": null}'));
+}
+test();
