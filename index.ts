@@ -20,7 +20,7 @@ function base64FromBuffer(buffer) {
 
 // TODO: Avoid _rawType collisions.
 function replacer(k: any, v: any) {
-  if (v instanceof Uint8Array) {
+  if (v instanceof Uint8Array || v instanceof ArrayBuffer) {
     return {
       "_rawType": "Uint8Array",
       "value": base64FromBuffer(v)
@@ -49,7 +49,7 @@ function parse(s: string) {
 const arr = new Uint8Array(4);
 console.log(arr);
 
-const s = stringify({"hi": arr, "cat": "foo"})
+const s = stringify({"hi": {"arr": arr}, "cat": "foo"})
 console.log("----");
 console.log(s);
 console.log(parse(s));
